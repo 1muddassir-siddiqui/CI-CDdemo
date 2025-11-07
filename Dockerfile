@@ -1,9 +1,11 @@
-FROM node:18
+# Use nginx to serve static HTML
+FROM nginx:alpine
 
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install
-COPY . .
+# Copy the HTML file to nginx's default serving directory
+COPY index.html /usr/share/nginx/html/
 
-EXPOSE 3000
-CMD ["npm", "start"]
+# Expose port 80 (nginx default)
+EXPOSE 80
+
+# nginx starts automatically with the default configuration
+CMD ["nginx", "-g", "daemon off;"]
